@@ -22,7 +22,7 @@ class CreateExchangeRatesTable extends Migration
             $table->float('rate');
             $table->dateTime('time_placed');
             $table->string('originating_country');
-            $table->bigInteger('originating_country')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
         });
     }
