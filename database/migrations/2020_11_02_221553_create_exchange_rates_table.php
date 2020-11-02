@@ -14,7 +14,15 @@ class CreateExchangeRatesTable extends Migration
     public function up()
     {
         Schema::create('exchange_rates', function (Blueprint $table) {
-            $table->id();
+            $table->UUID('id')->primary();
+            $table->string('currency_from',3);
+            $table->string('currency_to',3);
+            $table->float('amount_sell');
+            $table->float('amount_buy');
+            $table->float('rate');
+            $table->dateTime('time_placed');
+            $table->string('originating_country');
+            $table->bigInteger('originating_country')->unsigned();
             $table->timestamps();
         });
     }
