@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExchangeRateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+Route::prefix('rates')->group(function () {
+    Route::post('/', [ExchangeRateController::class, 'store']);
+    Route::get('/', [ExchangeRateController::class, 'get']);
+});
