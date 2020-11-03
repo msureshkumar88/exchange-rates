@@ -14,5 +14,5 @@ use App\Http\Controllers\ChartController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/buy-sell', [ChartController::class, 'buySell']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/buy-sell', [ChartController::class, 'buySell'])->name('buy_sell');
