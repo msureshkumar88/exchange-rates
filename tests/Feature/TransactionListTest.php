@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\ExchangeRate;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -15,8 +16,9 @@ class TransactionListTest extends TestCase
      */
     public function testExample()
     {
-        $response = $this->get('/');
-
+        $response = $this->getJson('api/rates');
+        $transactionCount = ExchangeRate::count();
+        $this->assertGreaterThan(0, $transactionCount);
         $response->assertStatus(200);
     }
 }
