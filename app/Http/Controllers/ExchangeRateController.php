@@ -7,11 +7,14 @@ use App\Models\ExchangeRate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ExchangeRateController extends Controller
 {
     use Utilities;
+
+//TODO: fix invalid rate and data time validation
 
     /**
      * @param Request $request
@@ -56,6 +59,25 @@ class ExchangeRateController extends Controller
         $exchangeRate->user_id = $request->userId;
         $exchangeRate->save();
         return response($this->formatResponse(true, null, null, 'The new currency exchange record has been successfully created'), Response::HTTP_OK);
+    }
+
+    public function getBuySell()
+    {
+        $amounts = DB::table('exchange_rates')->select(['amount_sell', 'amount_buy', 'time_placed'])->get();
+        if($amounts->isEmpty()){
+            return response($this->formatResponse(false, null, 'No data available'), Response::HTTP_OK);
+        }
+        $response = [
+            'buy' => [
+                'date'=>$amounts->pluck('time_placed')->toArray(),
+                'data'=>$amounts->pluck('amount_buy')->toArray()
+            ],
+            'sell' => [
+                'date'=>$amounts->pluck('time_placed')->toArray(),
+                'data'=>$amounts->pluck('amount_sell')->toArray()
+            ]
+        ];
+        return response($this->formatResponse(true, $response), Response::HTTP_OK);
     }
 
     /**
