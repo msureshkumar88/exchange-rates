@@ -61,6 +61,7 @@
 <!-- Bootstrap core JavaScript -->
 <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
 <script src="{{ URL::asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ URL::asset('js/plotly-latest.min.js') }}"></script>
 <script src="{{ URL::asset('js/script.js') }}"></script>
 
 <!-- Menu Toggle Script -->
