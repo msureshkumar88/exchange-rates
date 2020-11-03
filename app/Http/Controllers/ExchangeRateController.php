@@ -32,7 +32,11 @@ class ExchangeRateController extends Controller
      */
     public function get(Request $request)
     {
-
+        $exchangeRate = ExchangeRate::all();
+        if ($exchangeRate->isEmpty()) {
+            return response($this->formatResponse(false, null, 'These is no exchange data available'), Response::HTTP_OK);
+        }
+        return response($this->formatResponse(true, $exchangeRate), Response::HTTP_OK);
     }
 
     /**
@@ -47,7 +51,7 @@ class ExchangeRateController extends Controller
         $exchangeRate->amount_sell = $request->amountSell;
         $exchangeRate->amount_buy = $request->amountBuy;
         $exchangeRate->rate = $request->rate;
-        $exchangeRate->time_placed = Carbon::parse( $request->timePlaced, 'UTC')->isoFormat('YYYY-MM-DD hh:mm:ss');
+        $exchangeRate->time_placed = Carbon::parse($request->timePlaced, 'UTC')->isoFormat('YYYY-MM-DD hh:mm:ss');
         $exchangeRate->originating_country = $request->originatingCountry;
         $exchangeRate->user_id = $request->userId;
         $exchangeRate->save();
@@ -67,15 +71,16 @@ class ExchangeRateController extends Controller
         return [true, null];
     }
 //    TODO: write a custom validator to validate date format
+
     /**
      * @return array
      */
     private function rules()
     {
         return [
-            'userId' => ['required','numeric'],
-            'currencyFrom' => ['required','max:3', 'min:3', 'alpha'],
-            'currencyTo' => ['required', 'max:3', 'min:3','alpha'],
+            'userId' => ['required', 'numeric'],
+            'currencyFrom' => ['required', 'max:3', 'min:3', 'alpha'],
+            'currencyTo' => ['required', 'max:3', 'min:3', 'alpha'],
             'amountSell' => ['required', 'numeric'],
             'amountBuy' => ['required', 'numeric'],
             'rate' => ['required', 'numeric'],
