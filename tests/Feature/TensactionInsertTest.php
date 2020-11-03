@@ -14,7 +14,7 @@ class TensactionInsertTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testTransactionInsert()
     {
         $initialCount = ExchangeRate::count();
         $response = $this->postJson('/api/rates', [

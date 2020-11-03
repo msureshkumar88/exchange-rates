@@ -7,18 +7,18 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class TransactionListTest extends TestCase
+class ChartUrlTest extends TestCase
 {
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function testTransactionCount()
+    public function testChartUrl()
     {
-        $response = $this->getJson('api/rates');
-        $transactionCount = ExchangeRate::count();
-        $this->assertGreaterThan(0, $transactionCount);
+        $response = $this->get('/buy-sell');
+
         $response->assertStatus(200);
     }
+
 }
