@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     $.ajax({
         url: server + 'rates', success: function (result) {
-            if(result.status){
+            if (result.status) {
                 let template = '';
                 result.data.forEach(element => {
                     template += `<tr>
@@ -22,30 +22,29 @@ $(document).ready(function () {
             }
         }
     });
+    if ($("#cht-buy-sell").length) {
+        $.ajax({
+            url: server + 'rates/daily-buy-sell', success: function (result) {
+                if (result.status) {
+                    let trace1 = {
+                        x: result.data.buy.date,
+                        y: result.data.buy.data,
+                        type: 'scatter',
+                        name: 'Buy'
+                    };
 
-    $.ajax({
-        url: server + 'rates/daily-buy-sell', success: function (result) {
-            if(result.status){
-                let trace1 = {
-                    x: result.data.buy.date,
-                    y: result.data.buy.data,
-                    type: 'scatter',
-                    name:'Buy'
-                };
-
-                let trace2 = {
-                    x: result.data.sell.date,
-                    y: result.data.sell.data,
-                    type: 'scatter',
-                    name:'Sell'
-                };
-                let data = [trace1, trace2];
-                Plotly.newPlot('myDiv', data);
+                    let trace2 = {
+                        x: result.data.sell.date,
+                        y: result.data.sell.data,
+                        type: 'scatter',
+                        name: 'Sell'
+                    };
+                    let data = [trace1, trace2];
+                    Plotly.newPlot('cht-buy-sell', data);
+                }
             }
-        }
-    });
-
-
+        });
+    }
 
 
 });
