@@ -1,16 +1,16 @@
-##Approach
+## Approach
 
 The application is developed utilizing PHP 7.4 and Laravel 8 framework and MySql. Also, It uses HTML, CSS, Javascript Bootstrap and JQuery for developing frontend. This development opted for TDD that comes out of the box with Laravel. Composer package manager is used to manage PHP packages.   
 
 The default Laravel behaviour is use Auto increment in the Model, but this behaviour is change to UUIds. 
 
 ## Setup Steps
-- create a database called 'currencyfair' in MySql
+- Create a database called 'currencyfair' in MySql
 - Install required packages
 ```sh
 composer install
 ```
-- change configuration
+- Change configuration
 Create a .env file in the root for the project directory and paste following sample .env content
 ```sh
 APP_NAME=Laravel
@@ -63,7 +63,7 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ```
 - Change data base settings if required
 
-change following in the .env file
+Change following in the .env file
 ```sh
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
