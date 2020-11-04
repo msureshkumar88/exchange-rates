@@ -29,7 +29,6 @@
         <div class="list-group list-group-flush">
             <a href="{{route('home')}}" class="list-group-item list-group-item-action bg-light">Transactions</a>
             <a href="{{route('buy_sell')}}" class="list-group-item list-group-item-action bg-light">Buy Vs Sell</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
