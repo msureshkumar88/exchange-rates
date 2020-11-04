@@ -88,5 +88,3 @@ php artisan test
 ```
 #### View Postman API Documentation
 <a href="https://documenter.getpostman.com/view/12470139/TVYPztZW">Postman Documentation</a>
-
-**BY: Moharajan Suresh Kumar**
