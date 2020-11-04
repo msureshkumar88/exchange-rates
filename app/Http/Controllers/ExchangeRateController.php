@@ -14,7 +14,7 @@ class ExchangeRateController extends Controller
 {
     use Utilities;
 
-//TODO: fix invalid rate and data time validation
+    //TODO: fix invalid rate and data time validation
 
     /**
      * @param Request $request
@@ -30,8 +30,10 @@ class ExchangeRateController extends Controller
         return $this->persist($request);
     }
 
+
     /**
      * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
      */
     public function get(Request $request)
     {
@@ -61,20 +63,23 @@ class ExchangeRateController extends Controller
         return response($this->formatResponse(true, null, null, 'The new currency exchange record has been successfully created'), Response::HTTP_OK);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
+     */
     public function getBuySell()
     {
         $amounts = DB::table('exchange_rates')->select(['amount_sell', 'amount_buy', 'time_placed'])->get();
-        if($amounts->isEmpty()){
+        if ($amounts->isEmpty()) {
             return response($this->formatResponse(false, null, 'No data available'), Response::HTTP_OK);
         }
         $response = [
             'buy' => [
-                'date'=>$amounts->pluck('time_placed')->toArray(),
-                'data'=>$amounts->pluck('amount_buy')->toArray()
+                'date' => $amounts->pluck('time_placed')->toArray(),
+                'data' => $amounts->pluck('amount_buy')->toArray()
             ],
             'sell' => [
-                'date'=>$amounts->pluck('time_placed')->toArray(),
-                'data'=>$amounts->pluck('amount_sell')->toArray()
+                'date' => $amounts->pluck('time_placed')->toArray(),
+                'data' => $amounts->pluck('amount_sell')->toArray()
             ]
         ];
         return response($this->formatResponse(true, $response), Response::HTTP_OK);
@@ -106,7 +111,7 @@ class ExchangeRateController extends Controller
             'amountSell' => ['required', 'numeric'],
             'amountBuy' => ['required', 'numeric'],
             'rate' => ['required', 'numeric'],
-//            'timePlaced' => ['required','date_format:"d-M-y h:i:s"'],
+            'timePlaced' => ['required'],
             'originatingCountry' => ['required', 'alpha'],
         ];
     }
